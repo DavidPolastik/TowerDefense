@@ -9,3 +9,7 @@ export_presets.cfg
 # Systémové soubory
 .DS_Store
 Thumbs.db
+
+# Soubory jiných úkolů, které leží ve stejné složce (nepatří do hry)
+/seminarka
+/snake

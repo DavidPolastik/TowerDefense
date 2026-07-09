@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p snake)",
+      "Bash(git mv *)",
+      "Bash(mv snake *)"
+    ]
+  }
+}
