@@ -16,6 +16,7 @@ var health: int
 var _dead: bool = false
 var _prev_pos: Vector2
 @onready var body: Node2D = $Body
+@onready var turret: Sprite2D = $Body/Turret
 
 func _ready() -> void:
 	health = max_health
@@ -35,9 +36,29 @@ func _physics_process(delta: float) -> void:
 	if move.length() > 0.01:
 		body.rotation = move.angle() + PI / 2.0
 	_prev_pos = global_position
+	# Věžička tanku míří na nejbližší věž hráče (nezávisle na směru jízdy).
+	var tower := _find_nearest_tower()
+	if tower != null:
+		turret.global_rotation = (tower.global_position - global_position).angle() + PI / 2.0
+	else:
+		turret.rotation = 0.0
 	# progress_ratio dosáhne 1.0 na konci cesty.
 	if progress_ratio >= 1.0:
 		_reach_end()
+
+## Najde nejbližší věž hráče (skupina "towers").
+func _find_nearest_tower() -> Node2D:
+	var best: Node2D = null
+	var best_dist := INF
+	for t in get_tree().get_nodes_in_group("towers"):
+		if not is_instance_valid(t):
+			continue
+		var tower := t as Node2D
+		var d := global_position.distance_to(tower.global_position)
+		if d < best_dist:
+			best_dist = d
+			best = tower
+	return best
 
 ## Zásah projektilem – ubere HP, případně nepřítele zabije.
 func take_damage(amount: int) -> void:
@@ -51,6 +72,7 @@ func take_damage(amount: int) -> void:
 func _die() -> void:
 	_dead = true
 	remove_from_group("enemies")
+	Sfx.play_explosion()
 	GameManager.add_gold(reward)
 	GameManager.add_score(reward)
 	died.emit(reward)

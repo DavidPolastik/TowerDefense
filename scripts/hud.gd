@@ -1,16 +1,18 @@
 extends CanvasLayer
-## HUD – uživatelské rozhraní.
-## Zobrazuje zlato, životy a číslo vlny; nabízí tlačítka Stavět věž a Start.
+## HUD – uživatelské rozhraní (spodní lišta).
+## Zobrazuje zlato, životy a vlnu; nabízí výběr dvou typů věží a start vln.
 ## Reaguje na signály GameManageru (nemá přímé vazby na herní logiku).
 
-signal build_button_toggled(enabled: bool)
+# type: -1 = nic (stavba vypnutá), 0 = základní věž, 1 = silná věž
+signal build_selection_changed(type: int)
 signal start_pressed()
 
-@onready var gold_label: Label = $Panel/VBox/GoldLabel
-@onready var lives_label: Label = $Panel/VBox/LivesLabel
-@onready var wave_label: Label = $Panel/VBox/WaveLabel
-@onready var build_button: Button = $Panel/VBox/BuildButton
-@onready var start_button: Button = $Panel/VBox/StartButton
+@onready var gold_label: Label = $Bar/Row/Stats/GoldLabel
+@onready var lives_label: Label = $Bar/Row/Stats/LivesLabel
+@onready var wave_label: Label = $Bar/Row/Stats/WaveLabel
+@onready var basic_button: Button = $Bar/Row/BasicButton
+@onready var heavy_button: Button = $Bar/Row/HeavyButton
+@onready var start_button: Button = $Bar/Row/StartButton
 @onready var message_label: Label = $CenterMessage
 
 func _ready() -> void:
@@ -21,15 +23,28 @@ func _ready() -> void:
 	_on_lives_changed(GameManager.lives)
 	set_wave(0)
 	message_label.visible = false
-	build_button.toggled.connect(_on_build_toggled)
+	basic_button.toggled.connect(_on_basic_toggled)
+	heavy_button.toggled.connect(_on_heavy_toggled)
 	start_button.pressed.connect(_on_start_pressed)
 
 ## Aktualizuje zobrazené číslo vlny (napojeno na WaveManager).
 func set_wave(n: int) -> void:
 	wave_label.text = "Vlna: %d" % n
 
-func _on_build_toggled(pressed: bool) -> void:
-	build_button_toggled.emit(pressed)
+# Tlačítka pro výběr věže se chovají jako přepínače – aktivní může být jen jedno.
+func _on_basic_toggled(pressed: bool) -> void:
+	if pressed:
+		heavy_button.set_pressed_no_signal(false)
+		build_selection_changed.emit(0)
+	elif not heavy_button.button_pressed:
+		build_selection_changed.emit(-1)
+
+func _on_heavy_toggled(pressed: bool) -> void:
+	if pressed:
+		basic_button.set_pressed_no_signal(false)
+		build_selection_changed.emit(1)
+	elif not basic_button.button_pressed:
+		build_selection_changed.emit(-1)
 
 func _on_start_pressed() -> void:
 	start_button.disabled = true

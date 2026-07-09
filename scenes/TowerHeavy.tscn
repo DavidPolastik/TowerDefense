@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/tower.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/Projectile.tscn" id="2"]
+[ext_resource type="Texture2D" path="res://assets/tower_heavy.png" id="3"]
+
+[node name="Tower" type="Node2D"]
+script = ExtResource("1")
+projectile_scene = ExtResource("2")
+range_radius = 210.0
+fire_rate = 0.7
+damage = 34
+is_heavy = true
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3")

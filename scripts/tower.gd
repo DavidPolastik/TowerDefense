@@ -7,11 +7,13 @@ extends Node2D
 @export var fire_rate: float = 1.2        # výstřelů za sekundu
 @export var damage: int = 12
 @export var projectile_scene: PackedScene
+@export var is_heavy: bool = false        # silná věž (jiný zvuk výstřelu)
 
 var _cooldown: float = 0.0
 @onready var sprite: Sprite2D = $Sprite
 
 func _ready() -> void:
+	add_to_group("towers")   # aby na věž mohly mířit tanky
 	queue_redraw()
 
 func _physics_process(delta: float) -> void:
@@ -51,6 +53,11 @@ func _fire(target: Node2D) -> void:
 		container.add_child(projectile)
 	else:
 		get_parent().add_child(projectile)
+	# Zvuk výstřelu.
+	if is_heavy:
+		Sfx.play_shot_heavy()
+	else:
+		Sfx.play_shot()
 
 func _draw() -> void:
 	# Vizualizace dosahu věže.

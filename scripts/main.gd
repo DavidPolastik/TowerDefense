@@ -14,7 +14,7 @@ func _ready() -> void:
 	build_manager.setup(path, towers)
 
 	# Propojení HUD → herní systémy.
-	hud.build_button_toggled.connect(build_manager.set_build_mode)
+	hud.build_selection_changed.connect(build_manager.set_build_selection)
 	hud.start_pressed.connect(_on_start_pressed)
 
 	# Aktualizace čísla vlny v HUD.

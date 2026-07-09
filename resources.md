@@ -13,8 +13,17 @@ Sprity ve složce `assets/` pocházejí z balíčku **Kenney – Tower Defense
 - `bullet.png` – zlatá střela (projektil)
 - `base.png` – zelená budova (základna)
 
-Ikona projektu (`icon.svg`) a pozadí/cesta jsou vlastní (kresleno v Godotu).
-Zvuky zatím nejsou použity.
+Ikona projektu (`icon.svg`), hrad (`castle.svg`) a pozadí/cesta jsou vlastní
+(kresleno v Godotu / SVG).
+
+## Použité zvuky
+Zvuky ve složce `assets/audio/` pocházejí z balíčku **Kenney – Sci-Fi Sounds**,
+licence **CC0**:
+
+- Zdroj: <https://kenney.nl/assets/sci-fi-sounds>
+- `shot.ogg` – výstřel běžné věže (laserSmall)
+- `shot_heavy.ogg` – výstřel silné věže (laserLarge)
+- `explosion.ogg` – zničení nepřítele (explosionCrunch)
 
 ## Engine a nástroje
 - **Godot Engine 4.3** – open-source herní engine, <https://godotengine.org>

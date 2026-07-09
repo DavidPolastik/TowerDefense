@@ -20,17 +20,22 @@ Když nepřítel projde na konec cesty, ztratíš život. Přežij všechny vlny
 
 ## Ovládání
 - **Tlačítko „Spustit vlny"** – spustí příchod nepřátel.
-- **Tlačítko „Stavět věž (50 zlata)"** – zapne stavební režim (přepínací).
-- **Levé tlačítko myši** – ve stavebním režimu postaví věž na volné místo
-  (nesmí být na cestě ani na jiné věži, potřebuješ 50 zlata).
+- **Tlačítko „Věž (50)"** – vybere stavbu základní věže.
+- **Tlačítko „Silná věž (90)"** – vybere stavbu silné věže (větší dosah
+  i poškození, pomalejší střelba).
+- **Levé tlačítko myši** – po výběru typu věže postaví věž na volné místo.
+  Náhled u kurzoru ukazuje, kam lze stavět (**zeleně** = ano, **červeně** = ne –
+  moc blízko cesty / jiné věže / málo zlata).
 - **Klávesa R** – restart hry.
 
 ## Implementované systémy
 - **Ekonomika** – zlato, odměny, ceny věží.
 - **Vlny** – 5 vln s rostoucí obtížností.
-- **Boj** – věže zaměřují a střílí, projektily působí poškození.
-- **Životy** – ztráta životů, konec hry (výhra/prohra).
-- **Stavba** – umisťování věží na mřížku s kontrolou.
+- **Boj** – věže zaměřují a otáčejí hlaveň na cíl, projektily působí poškození.
+  Nepřátelské tanky natáčejí věžičku na nejbližší věž.
+- **Životy** – ztráta životů, ukazatel nad hradem, konec hry (výhra/prohra).
+- **Stavba** – dva typy věží, umisťování na mřížku s náhledem a kontrolou.
+- **Zvuky** – výstřel a výbuch (Kenney, CC0).
 
 ## Struktura projektu
 ```
