@@ -1,7 +1,7 @@
 extends Node2D
 ## BuildManager – "stavební systém".
-## Umožní stavět dva typy věží (základní / silná) na volná místa mimo cestu.
-## Živý náhled ukazuje, kam lze stavět (zelená = ano, červená = ne).
+## Dva typy věží (základní / silná). Ve stavebním režimu zvýrazní mřížku
+## volných polí (zelená = lze stavět) a u kurzoru ukáže náhled + dosah.
 
 @export var tower_basic_scene: PackedScene
 @export var tower_heavy_scene: PackedScene
@@ -10,7 +10,9 @@ extends Node2D
 @export var basic_range: float = 160.0
 @export var heavy_range: float = 210.0
 @export var grid_size: int = 64
-@export var min_distance_from_path: float = 48.0
+@export var min_distance_from_path: float = 46.0
+
+const BAR_H := 96.0   # spodní HUD lišta – tam se nestaví
 
 # Vybraný typ věže: -1 = nic (stavba vypnutá), 0 = základní, 1 = silná.
 var _selected_type: int = -1
@@ -19,8 +21,8 @@ var _path: Path2D
 var _towers_container: Node2D
 var _preview_pos: Vector2 = Vector2.ZERO
 var _preview_valid: bool = false
+var _valid_cells: Array[Vector2] = []
 
-## Předá cestu a kontejner pro věže (volá Main).
 func setup(path: Path2D, towers_container: Node2D) -> void:
 	_path = path
 	_towers_container = towers_container
@@ -28,6 +30,8 @@ func setup(path: Path2D, towers_container: Node2D) -> void:
 ## Nastaví vybraný typ věže (napojeno na tlačítka v HUD). -1 = stavba vypnutá.
 func set_build_selection(type: int) -> void:
 	_selected_type = type
+	if _build_enabled():
+		_recompute_cells()
 	queue_redraw()
 
 func _build_enabled() -> bool:
@@ -64,6 +68,7 @@ func _try_build(world_pos: Vector2) -> void:
 	var tower := _current_scene().instantiate()
 	tower.global_position = target_pos
 	_towers_container.add_child(tower)
+	_recompute_cells()   # nová věž zabrala pole
 
 func _snap_to_grid(pos: Vector2) -> Vector2:
 	var gx := roundf(pos.x / grid_size) * grid_size
@@ -84,12 +89,34 @@ func _is_valid_position(pos: Vector2) -> bool:
 				return false
 	return true
 
+## Spočítá všechna volná pole na mřížce (pro zvýraznění).
+func _recompute_cells() -> void:
+	_valid_cells.clear()
+	var vp := get_viewport_rect().size
+	var max_y := vp.y - BAR_H
+	var x := float(grid_size)
+	while x < vp.x:
+		var y := float(grid_size)
+		while y < max_y:
+			var pos := Vector2(x, y)
+			if _is_valid_position(pos):
+				_valid_cells.append(pos)
+			y += grid_size
+		x += grid_size
+
 func _draw() -> void:
 	if not _build_enabled():
 		return
-	var col := Color(0.3, 0.9, 0.4, 0.9) if _preview_valid else Color(0.9, 0.3, 0.3, 0.9)
+	# Zvýraznění všech volných polí.
+	var s := grid_size * 0.82
+	var half := Vector2(s, s) * 0.5
+	for c in _valid_cells:
+		draw_rect(Rect2(c - half, Vector2(s, s)), Color(0.3, 0.9, 0.45, 0.12))
+		draw_rect(Rect2(c - half, Vector2(s, s)), Color(0.3, 0.9, 0.45, 0.35), false, 1.0)
+	# Náhled u kurzoru.
+	var col := Color(0.3, 0.95, 0.45, 1.0) if _preview_valid else Color(0.95, 0.35, 0.3, 1.0)
 	var r := _current_range()
-	draw_circle(_preview_pos, r, Color(col.r, col.g, col.b, 0.08))
-	draw_arc(_preview_pos, r, 0.0, TAU, 48, Color(col.r, col.g, col.b, 0.35), 1.5)
-	draw_circle(_preview_pos, grid_size * 0.4, Color(col.r, col.g, col.b, 0.35))
-	draw_arc(_preview_pos, grid_size * 0.4, 0.0, TAU, 24, col, 2.5)
+	draw_circle(_preview_pos, r, Color(col.r, col.g, col.b, 0.10))
+	draw_arc(_preview_pos, r, 0.0, TAU, 48, Color(col.r, col.g, col.b, 0.4), 2.0)
+	draw_rect(Rect2(_preview_pos - half, Vector2(s, s)), Color(col.r, col.g, col.b, 0.45))
+	draw_arc(_preview_pos, grid_size * 0.4, 0.0, TAU, 24, col, 3.0)

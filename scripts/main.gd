@@ -68,4 +68,6 @@ func _draw() -> void:
 	if path != null and path.curve != null:
 		var pts := path.curve.get_baked_points()
 		if pts.size() > 1:
-			draw_polyline(pts, Color(0.82, 0.72, 0.5, 0.95), 46.0)
+			# Tmavý obrys, aby byla cesta vidět na jakémkoli pozadí.
+			draw_polyline(pts, Color(0.35, 0.27, 0.16, 0.95), 54.0)
+			draw_polyline(pts, Color(0.86, 0.75, 0.55, 1.0), 44.0)

@@ -21,8 +21,8 @@ var levels: Array = [
 		"start_lives": 20,
 		"bg": "res://assets/bg_grass.png",
 		"path": PackedVector2Array([
-			Vector2(-40, 130), Vector2(1150, 130), Vector2(1150, 330),
-			Vector2(150, 330), Vector2(150, 520), Vector2(1030, 520),
+			Vector2(-40, 130), Vector2(1300, 130), Vector2(1300, 335),
+			Vector2(140, 335), Vector2(140, 540), Vector2(1200, 540),
 		]),
 		"waves": [
 			{"count": 6, "health": 22, "speed": 110.0, "reward": 9},
@@ -37,9 +37,9 @@ var levels: Array = [
 		"start_lives": 18,
 		"bg": "res://assets/bg_sand.png",
 		"path": PackedVector2Array([
-			Vector2(-40, 110), Vector2(1150, 110), Vector2(1150, 250),
-			Vector2(150, 250), Vector2(150, 400), Vector2(1150, 400),
-			Vector2(1150, 540), Vector2(120, 540),
+			Vector2(-40, 110), Vector2(1300, 110), Vector2(1300, 290),
+			Vector2(140, 290), Vector2(140, 470), Vector2(1300, 470),
+			Vector2(1300, 650), Vector2(140, 650),
 		]),
 		"waves": [
 			{"count": 8, "health": 30, "speed": 115.0, "reward": 8},
@@ -55,9 +55,9 @@ var levels: Array = [
 		"start_lives": 15,
 		"bg": "res://assets/bg_stone.png",
 		"path": PackedVector2Array([
-			Vector2(-40, 100), Vector2(1150, 100), Vector2(1150, 220),
-			Vector2(120, 220), Vector2(120, 340), Vector2(1150, 340),
-			Vector2(1150, 460), Vector2(150, 460), Vector2(150, 560),
+			Vector2(-40, 100), Vector2(1320, 100), Vector2(1320, 270),
+			Vector2(120, 270), Vector2(120, 440), Vector2(1320, 440),
+			Vector2(1320, 610), Vector2(120, 610),
 		]),
 		"waves": [
 			{"count": 10, "health": 40, "speed": 120.0, "reward": 8},
