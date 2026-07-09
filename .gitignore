@@ -18,5 +18,7 @@ Thumbs.db
 # Konfigurace editoru / nástrojů
 .claude/
 
-# Zadání (nepatří do repozitáře hry)
+# Zadání a soubory seminárky (nepatří do repozitáře hry)
 /zaverecnyprojekt.md
+/seminarka_latex.zip
+*.zip
