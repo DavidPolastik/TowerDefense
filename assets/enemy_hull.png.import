@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cj2vfbrggtsiu"
-path="res://.godot/imported/enemy_tank.png-d9c53504870080335ab54a99b7739010.ctex"
+uid="uid://b5agdx110w2yy"
+path="res://.godot/imported/enemy_hull.png-f7b58adb6f62f316de2e110a2485f7ce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy_tank.png"
-dest_files=["res://.godot/imported/enemy_tank.png-d9c53504870080335ab54a99b7739010.ctex"]
+source_file="res://assets/enemy_hull.png"
+dest_files=["res://.godot/imported/enemy_hull.png-f7b58adb6f62f316de2e110a2485f7ce.ctex"]
 
 [params]
 

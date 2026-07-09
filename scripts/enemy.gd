@@ -14,18 +14,27 @@ signal reached_end()
 
 var health: int
 var _dead: bool = false
+var _prev_pos: Vector2
+@onready var body: Node2D = $Body
 
 func _ready() -> void:
 	health = max_health
 	rotates = false
 	loop = false
 	add_to_group("enemies")
+	_prev_pos = global_position
 	queue_redraw()
 
 func _physics_process(delta: float) -> void:
 	if _dead:
 		return
 	progress += speed * delta
+	# Natočení tanku ve směru jízdy (sprite míří nahoru, proto +PI/2).
+	# Otáčíme jen "Body" (korbu+věž), takže HP bar zůstává vodorovný.
+	var move := global_position - _prev_pos
+	if move.length() > 0.01:
+		body.rotation = move.angle() + PI / 2.0
+	_prev_pos = global_position
 	# progress_ratio dosáhne 1.0 na konci cesty.
 	if progress_ratio >= 1.0:
 		_reach_end()
