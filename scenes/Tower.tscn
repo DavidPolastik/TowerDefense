@@ -1,16 +1,13 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/Projectile.tscn" id="2"]
+[ext_resource type="Texture2D" path="res://assets/tower.png" id="3"]
 
 [node name="Tower" type="Node2D"]
 script = ExtResource("1")
 projectile_scene = ExtResource("2")
 
-[node name="Body" type="Polygon2D" parent="."]
-color = Color(0.3, 0.45, 0.8, 1)
-polygon = PackedVector2Array(-18, -18, 18, -18, 18, 18, -18, 18)
-
-[node name="Barrel" type="Polygon2D" parent="."]
-color = Color(0.72, 0.82, 1, 1)
-polygon = PackedVector2Array(-4, -26, 4, -26, 4, 2, -4, 2)
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3")

@@ -3,21 +3,25 @@
 Přehled zdrojů a assetů použitých v projektu. Slouží pro případ, že by se
 s projektem dále pracovalo.
 
-## Aktuální stav
-Hra zatím používá **pouze vlastní geometrické tvary** vykreslené přímo
-v Godotu (barevné čtverce, kruhy, čáry) – žádné externí obrázky ani zvuky
-zatím nejsou použity. Ikona projektu (`icon.svg`) je vlastní.
+## Použitá grafika
+Sprity ve složce `assets/` pocházejí z balíčku **Kenney – Tower Defense
+(Top-Down)**, licence **CC0** (volné použití bez uvádění autora):
+
+- Zdroj balíčku: <https://kenney.nl/assets/tower-defense-top-down>
+- `tower.png` – zelený kanón (věž)
+- `enemy_tank.png` – šedý tank (nepřítel)
+- `bullet.png` – zlatá střela (projektil)
+- `base.png` – zelená budova (základna)
+
+Ikona projektu (`icon.svg`) a pozadí/cesta jsou vlastní (kresleno v Godotu).
+Zvuky zatím nejsou použity.
 
 ## Engine a nástroje
-- **Godot Engine 4.x** – open-source herní engine, <https://godotengine.org>
+- **Godot Engine 4.3** – open-source herní engine, <https://godotengine.org>
 - **GDScript** – skriptovací jazyk Godotu
 - Dokumentace Godotu – <https://docs.godotengine.org/en/stable/>
 
-## Doporučené zdroje pro budoucí assety (zatím nepoužito)
-Pokud by se doplňovala grafika a zvuky, vhodné zdroje s volnou licencí (CC0):
-
-- **Kenney** – herní assety (mj. „Tower Defense" balíčky), CC0 –
-  <https://kenney.nl/assets>
+## Další doporučené zdroje (zatím nepoužito)
 - **OpenGameArt** – volně dostupné assety – <https://opengameart.org>
 - **Freesound** – zvukové efekty – <https://freesound.org>
 
