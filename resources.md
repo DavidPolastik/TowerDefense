@@ -4,17 +4,23 @@ Přehled zdrojů a assetů použitých v projektu. Slouží pro případ, že by
 s projektem dále pracovalo.
 
 ## Použitá grafika
-Sprity ve složce `assets/` pocházejí z balíčku **Kenney – Tower Defense
-(Top-Down)**, licence **CC0** (volné použití bez uvádění autora):
+Sprity a dlaždice ve složce `assets/` pocházejí z balíčku **Kenney – Tower
+Defense (Top-Down)**, licence **CC0** (volné použití bez uvádění autora):
 
 - Zdroj balíčku: <https://kenney.nl/assets/tower-defense-top-down>
-- `tower.png` – zelený kanón (věž)
-- `enemy_tank.png` – šedý tank (nepřítel)
-- `bullet.png` – zlatá střela (projektil)
-- `base.png` – zelená budova (základna)
+- `tower.png` – zelený kanón (základní věž)
+- `tower_heavy.png` – červený kanón (silná věž)
+- `enemy_hull.png` – korba tanku (nepřítel)
+- `enemy_turret.png` – věžička tanku (nepřítel)
+- `bullet.png` – zlatá kulka (projektil)
+- `icon_gold.png` – mince (ikona zlata v HUD)
+- `bg_grass.png`, `bg_sand.png`, `bg_stone.png` – dlaždice pozadí úrovní
 
-Ikona projektu (`icon.svg`), hrad (`castle.svg`) a pozadí/cesta jsou vlastní
-(kresleno v Godotu / SVG).
+Vlastní grafika (kresleno v Godotu / vlastní SVG):
+- `icon.svg` – ikona projektu
+- `castle.svg` – hrad (základna)
+- `icon_heart.svg` – srdíčko (ikona životů v HUD)
+- `ui_theme.tres` – vzhled uživatelského rozhraní (Godot Theme)
 
 ## Použité zvuky
 Zvuky ve složce `assets/audio/` pocházejí z balíčku **Kenney – Sci-Fi Sounds**,
