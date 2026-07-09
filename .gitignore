@@ -17,3 +17,6 @@ Thumbs.db
 
 # Konfigurace editoru / nástrojů
 .claude/
+
+# Zadání (nepatří do repozitáře hry)
+/zaverecnyprojekt.md
