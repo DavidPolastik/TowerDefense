@@ -2,10 +2,7 @@ extends Sprite2D
 ## Base – hrad (základna). Zobrazuje ukazatel životů hráče.
 ## Životy drží GameManager; tady je jen vykreslujeme jako health bar.
 
-var _max_lives: int = 1
-
 func _ready() -> void:
-	_max_lives = GameManager.STARTING_LIVES
 	GameManager.lives_changed.connect(_on_lives_changed)
 	queue_redraw()
 
@@ -14,7 +11,8 @@ func _on_lives_changed(_amount: int) -> void:
 
 func _draw() -> void:
 	# Ukazatel životů nad hradem (lokální souřadnice spritu, střed v 0,0).
-	var ratio: float = clampf(float(GameManager.lives) / float(_max_lives), 0.0, 1.0)
+	var max_lives: int = max(1, GameManager.start_lives)
+	var ratio: float = clampf(float(GameManager.lives) / float(max_lives), 0.0, 1.0)
 	var bar_w := 120.0
 	var bar_h := 16.0
 	var top_left := Vector2(-bar_w / 2.0, -86.0)

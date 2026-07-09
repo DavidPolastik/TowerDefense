@@ -55,9 +55,8 @@ var levels: Array = [
 		"start_lives": 15,
 		"bg": "res://assets/bg_stone.png",
 		"path": PackedVector2Array([
-			Vector2(-40, 100), Vector2(1320, 100), Vector2(1320, 270),
-			Vector2(120, 270), Vector2(120, 440), Vector2(1320, 440),
-			Vector2(1320, 610), Vector2(120, 610),
+			Vector2(-40, 120), Vector2(1330, 120), Vector2(1330, 325),
+			Vector2(120, 325), Vector2(120, 530), Vector2(1210, 530),
 		]),
 		"waves": [
 			{"count": 10, "health": 40, "speed": 120.0, "reward": 8},

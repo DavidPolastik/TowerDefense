@@ -75,8 +75,15 @@ func _snap_to_grid(pos: Vector2) -> Vector2:
 	var gy := roundf(pos.y / grid_size) * grid_size
 	return Vector2(gx, gy)
 
-## Ověří, že místo je volné: dost daleko od cesty a bez jiné věže.
+## Ověří, že místo je volné: v ploše, dost daleko od cesty a bez jiné věže.
 func _is_valid_position(pos: Vector2) -> bool:
+	# Musí být celé na ploše (nad HUD lištou, ne přes okraj).
+	var vp := get_viewport_rect().size
+	var m := grid_size * 0.5
+	if pos.x < m or pos.x > vp.x - m:
+		return false
+	if pos.y < m or pos.y > vp.y - BAR_H - m:
+		return false
 	if _path != null and _path.curve != null:
 		var local := _path.to_local(pos)
 		var closest_local := _path.curve.get_closest_point(local)
@@ -93,11 +100,10 @@ func _is_valid_position(pos: Vector2) -> bool:
 func _recompute_cells() -> void:
 	_valid_cells.clear()
 	var vp := get_viewport_rect().size
-	var max_y := vp.y - BAR_H
-	var x := float(grid_size)
-	while x < vp.x:
-		var y := float(grid_size)
-		while y < max_y:
+	var x := 0.0
+	while x <= vp.x:
+		var y := 0.0
+		while y <= vp.y:
 			var pos := Vector2(x, y)
 			if _is_valid_position(pos):
 				_valid_cells.append(pos)
