@@ -1,5 +1,5 @@
 extends Control
-## Výběr úrovně – tlačítka se generují podle dat; zamčené jsou neaktivní.
+# vyber urovne - tlacitka se generuji podle dat, zamcene jsou neaktivni
 
 func _ready() -> void:
 	Engine.time_scale = 1.0

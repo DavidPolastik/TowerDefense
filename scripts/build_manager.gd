@@ -1,7 +1,5 @@
 extends Node2D
-## BuildManager – "stavební systém".
-## Dva typy věží (základní / silná). Ve stavebním režimu zvýrazní mřížku
-## volných polí (zelená = lze stavět) a u kurzoru ukáže náhled + dosah.
+# stavba vezi - dva typy, nahled a zvyrazneni volnych poli
 
 @export var tower_basic_scene: PackedScene
 @export var tower_heavy_scene: PackedScene
@@ -12,11 +10,9 @@ extends Node2D
 @export var grid_size: int = 64
 @export var min_distance_from_path: float = 46.0
 
-const BAR_H := 96.0   # spodní HUD lišta – tam se nestaví
+const BAR_H := 96.0   # spodni lista
 
-# Vybraný typ věže: -1 = nic (stavba vypnutá), 0 = základní, 1 = silná.
-var _selected_type: int = -1
-
+var _selected_type: int = -1   # -1 nic, 0 zakladni, 1 silna
 var _path: Path2D
 var _towers_container: Node2D
 var _preview_pos: Vector2 = Vector2.ZERO
@@ -27,7 +23,6 @@ func setup(path: Path2D, towers_container: Node2D) -> void:
 	_path = path
 	_towers_container = towers_container
 
-## Nastaví vybraný typ věže (napojeno na tlačítka v HUD). -1 = stavba vypnutá.
 func set_build_selection(type: int) -> void:
 	_selected_type = type
 	if _build_enabled():
@@ -68,16 +63,15 @@ func _try_build(world_pos: Vector2) -> void:
 	var tower := _current_scene().instantiate()
 	tower.global_position = target_pos
 	_towers_container.add_child(tower)
-	_recompute_cells()   # nová věž zabrala pole
+	_recompute_cells()
 
 func _snap_to_grid(pos: Vector2) -> Vector2:
 	var gx := roundf(pos.x / grid_size) * grid_size
 	var gy := roundf(pos.y / grid_size) * grid_size
 	return Vector2(gx, gy)
 
-## Ověří, že místo je volné: v ploše, dost daleko od cesty a bez jiné věže.
+# misto musi byt v plose, dost daleko od cesty a bez jine veze
 func _is_valid_position(pos: Vector2) -> bool:
-	# Musí být celé na ploše (nad HUD lištou, ne přes okraj).
 	var vp := get_viewport_rect().size
 	var m := grid_size * 0.5
 	if pos.x < m or pos.x > vp.x - m:
@@ -96,7 +90,6 @@ func _is_valid_position(pos: Vector2) -> bool:
 				return false
 	return true
 
-## Spočítá všechna volná pole na mřížce (pro zvýraznění).
 func _recompute_cells() -> void:
 	_valid_cells.clear()
 	var vp := get_viewport_rect().size
@@ -113,13 +106,13 @@ func _recompute_cells() -> void:
 func _draw() -> void:
 	if not _build_enabled():
 		return
-	# Zvýraznění všech volných polí.
+	# volna pole
 	var s := grid_size * 0.82
 	var half := Vector2(s, s) * 0.5
 	for c in _valid_cells:
 		draw_rect(Rect2(c - half, Vector2(s, s)), Color(0.3, 0.9, 0.45, 0.12))
 		draw_rect(Rect2(c - half, Vector2(s, s)), Color(0.3, 0.9, 0.45, 0.35), false, 1.0)
-	# Náhled u kurzoru.
+	# nahled u kurzoru + dosah
 	var col := Color(0.3, 0.95, 0.45, 1.0) if _preview_valid else Color(0.95, 0.35, 0.3, 1.0)
 	var r := _current_range()
 	draw_circle(_preview_pos, r, Color(col.r, col.g, col.b, 0.10))

@@ -75,7 +75,3 @@ jsou volně provázané a snadno rozšiřitelné.
 - Vylepšování věží za zlato.
 - Skutečné sprity a zvuky místo geometrických tvarů.
 - Ukazatel postupu vlny a odpočet do další vlny.
-
-## Poznámka
-Jedná se o samostatnou práci (jednotlivec). *(Pokud by šlo o společnou práci
-ve dvojici, bylo by to uvedeno zde včetně jmen obou autorů.)*

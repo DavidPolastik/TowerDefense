@@ -1,7 +1,5 @@
 extends Node
-## Sfx – jednoduchý zvukový manažer (autoload).
-## Přehrává zvuky přes pool přehrávačů, aby se mohly překrývat
-## (víc výstřelů a výbuchů najednou bez usekávání).
+# prehravani zvuku pres pool prehravacu, at se muzou prekryvat (autoload)
 
 const SHOT: AudioStream = preload("res://assets/audio/shot.ogg")
 const SHOT_HEAVY: AudioStream = preload("res://assets/audio/shot_heavy.ogg")

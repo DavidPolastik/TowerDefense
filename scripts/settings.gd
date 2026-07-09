@@ -1,5 +1,5 @@
 extends Control
-## Nastavení – hlasitost a celá obrazovka (ukládá se přes Levels).
+# nastaveni - hlasitost, rychlost hry, cela obrazovka
 
 const SPEEDS := [1.0, 2.0, 3.0]
 

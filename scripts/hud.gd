@@ -1,8 +1,7 @@
 extends CanvasLayer
-## HUD – spodní lišta (zlato, životy, vlna, výběr věží) + obrazovka konce hry.
+# spodni lista (zlato, zivoty, vlna, tlacitka) + obrazovka konce
 
-# type: -1 = nic, 0 = základní věž, 1 = silná věž
-signal build_selection_changed(type: int)
+signal build_selection_changed(type: int)   # -1 nic, 0 zakladni, 1 silna
 signal start_pressed()
 
 @onready var level_label: Label = $Bar/Row/Stats/LevelLabel
@@ -36,13 +35,11 @@ func _ready() -> void:
 	retry_button.pressed.connect(_on_retry)
 	menu_button.pressed.connect(_on_menu)
 
-## Nastaví název úrovně a celkový počet vln (volá Main).
 func set_level_info(level_name: String, total: int) -> void:
 	level_label.text = level_name
 	_wave_total = total
 	set_wave(0)
 
-## Aktualizuje zobrazené číslo vlny (napojeno na WaveManager).
 func set_wave(n: int) -> void:
 	wave_label.text = "Vlna: %d/%d" % [n, _wave_total]
 

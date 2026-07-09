@@ -1,19 +1,16 @@
 extends Node
-## Levels – data úrovní, postup hráče a nastavení (autoload "Levels").
-## Ukládá se do user://save.cfg (odemčené úrovně + hlasitost + celá obrazovka).
+# data urovni + postup a nastaveni, uklada se do user://save.cfg (autoload)
 
 const SAVE_PATH := "user://save.cfg"
 
-var current: int = 0        # index právě hrané úrovně
-var unlocked: int = 1       # počet odemčených úrovní (1..N)
+var current: int = 0        # index hrane urovne
+var unlocked: int = 1       # kolik urovni je odemceno
 
-# Nastavení
-var volume: float = 0.8       # 0..1
+var volume: float = 0.8
 var fullscreen: bool = false
-var game_speed: float = 1.0   # 1× / 2× / 3×
+var game_speed: float = 1.0
 
-# Definice úrovní. Každá: název, počáteční zlato/životy, barva a dlaždice
-# pozadí, body cesty a seznam vln.
+# kazda uroven: nazev, zlato/zivoty, pozadi, body cesty, vlny
 var levels: Array = [
 	{
 		"name": "1 – Louka",
@@ -88,12 +85,10 @@ func is_unlocked(i: int) -> bool:
 func has_next() -> bool:
 	return current + 1 < level_count()
 
-## Zavolá se po vyhrané úrovni – odemkne další.
 func complete_current() -> void:
+	# po vyhre odemkni dalsi uroven
 	unlocked = max(unlocked, min(level_count(), current + 2))
 	_save()
-
-# --- Nastavení ---
 
 func set_volume(v: float) -> void:
 	volume = clampf(v, 0.0, 1.0)
