@@ -11,21 +11,20 @@ signal all_waves_completed()
 @export var time_between_waves: float = 4.0   # pauza mezi vlnami (s)
 @export var spawn_interval: float = 0.8       # rozestup spawnování v jedné vlně (s)
 
-# Definice vln – počet nepřátel, jejich HP, rychlost a odměna.
-var _waves := [
-	{"count": 6,  "health": 24,  "speed": 110.0, "reward": 8},
-	{"count": 9,  "health": 32,  "speed": 120.0, "reward": 9},
-	{"count": 12, "health": 42,  "speed": 130.0, "reward": 10},
-	{"count": 14, "health": 58,  "speed": 135.0, "reward": 12},
-	{"count": 18, "health": 80,  "speed": 145.0, "reward": 14},
-]
+# Definice vln (počet, HP, rychlost, odměna) – naplní se z dat úrovně.
+var _waves: Array = []
 
 var _path: Path2D
 var _current_wave: int = 0
 
-## Předá cestu, po které se budou nepřátelé pohybovat.
-func setup(path: Path2D) -> void:
+## Předá cestu a seznam vln pro danou úroveň.
+func setup(path: Path2D, waves: Array) -> void:
 	_path = path
+	_waves = waves
+
+## Počet vln v úrovni (pro zobrazení v HUD).
+func wave_total() -> int:
+	return _waves.size()
 
 ## Spustí spouštění vln (volá se po stisku tlačítka Start).
 func start() -> void:

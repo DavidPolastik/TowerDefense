@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Tower Defense"
 config/description="Strategická hra (tower defense) – závěrečný projekt."
-run/main_scene="res://scenes/Main.tscn"
+run/main_scene="res://scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 GameManager="*res://scripts/game_manager.gd"
 Sfx="*res://scripts/sound_manager.gd"
+Levels="*res://scripts/levels.gd"
 
 [display]
 

@@ -1,19 +1,25 @@
 extends CanvasLayer
-## HUD – uživatelské rozhraní (spodní lišta).
-## Zobrazuje zlato, životy a vlnu; nabízí výběr dvou typů věží a start vln.
-## Reaguje na signály GameManageru (nemá přímé vazby na herní logiku).
+## HUD – spodní lišta (zlato, životy, vlna, výběr věží) + obrazovka konce hry.
 
-# type: -1 = nic (stavba vypnutá), 0 = základní věž, 1 = silná věž
+# type: -1 = nic, 0 = základní věž, 1 = silná věž
 signal build_selection_changed(type: int)
 signal start_pressed()
 
-@onready var gold_label: Label = $Bar/Row/Stats/GoldLabel
-@onready var lives_label: Label = $Bar/Row/Stats/LivesLabel
+@onready var level_label: Label = $Bar/Row/Stats/LevelLabel
+@onready var gold_label: Label = $Bar/Row/Stats/InfoRow/GoldRow/GoldLabel
+@onready var lives_label: Label = $Bar/Row/Stats/InfoRow/LivesRow/LivesLabel
 @onready var wave_label: Label = $Bar/Row/Stats/WaveLabel
 @onready var basic_button: Button = $Bar/Row/BasicButton
 @onready var heavy_button: Button = $Bar/Row/HeavyButton
 @onready var start_button: Button = $Bar/Row/StartButton
-@onready var message_label: Label = $CenterMessage
+@onready var menu_bar_button: Button = $Bar/Row/MenuBarButton
+@onready var overlay: Control = $Overlay
+@onready var message_label: Label = $Overlay/Center/Card/VBox/MessageLabel
+@onready var next_button: Button = $Overlay/Center/Card/VBox/Buttons/NextButton
+@onready var retry_button: Button = $Overlay/Center/Card/VBox/Buttons/RetryButton
+@onready var menu_button: Button = $Overlay/Center/Card/VBox/Buttons/MenuButton
+
+var _wave_total: int = 0
 
 func _ready() -> void:
 	GameManager.gold_changed.connect(_on_gold_changed)
@@ -21,17 +27,25 @@ func _ready() -> void:
 	GameManager.game_over.connect(_on_game_over)
 	_on_gold_changed(GameManager.gold)
 	_on_lives_changed(GameManager.lives)
-	set_wave(0)
-	message_label.visible = false
+	overlay.visible = false
 	basic_button.toggled.connect(_on_basic_toggled)
 	heavy_button.toggled.connect(_on_heavy_toggled)
 	start_button.pressed.connect(_on_start_pressed)
+	menu_bar_button.pressed.connect(_on_menu)
+	next_button.pressed.connect(_on_next)
+	retry_button.pressed.connect(_on_retry)
+	menu_button.pressed.connect(_on_menu)
+
+## Nastaví název úrovně a celkový počet vln (volá Main).
+func set_level_info(level_name: String, total: int) -> void:
+	level_label.text = level_name
+	_wave_total = total
+	set_wave(0)
 
 ## Aktualizuje zobrazené číslo vlny (napojeno na WaveManager).
 func set_wave(n: int) -> void:
-	wave_label.text = "Vlna: %d" % n
+	wave_label.text = "Vlna: %d/%d" % [n, _wave_total]
 
-# Tlačítka pro výběr věže se chovají jako přepínače – aktivní může být jen jedno.
 func _on_basic_toggled(pressed: bool) -> void:
 	if pressed:
 		heavy_button.set_pressed_no_signal(false)
@@ -51,14 +65,25 @@ func _on_start_pressed() -> void:
 	start_pressed.emit()
 
 func _on_gold_changed(amount: int) -> void:
-	gold_label.text = "Zlato: %d" % amount
+	gold_label.text = str(amount)
 
 func _on_lives_changed(amount: int) -> void:
-	lives_label.text = "Životy: %d" % amount
+	lives_label.text = str(amount)
 
 func _on_game_over(victory: bool) -> void:
-	message_label.visible = true
-	if victory:
-		message_label.text = "VÝHRA!\n(R = restart)"
-	else:
-		message_label.text = "PROHRA\n(R = restart)"
+	message_label.text = "VÍTĚZSTVÍ!" if victory else "PROHRA"
+	message_label.modulate = Color(0.4, 1, 0.5) if victory else Color(1, 0.4, 0.4)
+	next_button.visible = victory and Levels.has_next()
+	overlay.visible = true
+
+func _on_next() -> void:
+	if Levels.has_next():
+		Levels.current += 1
+	get_tree().change_scene_to_file("res://scenes/Main.tscn")
+
+func _on_retry() -> void:
+	get_tree().reload_current_scene()
+
+func _on_menu() -> void:
+	Engine.time_scale = 1.0
+	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")

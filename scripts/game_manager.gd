@@ -13,15 +13,24 @@ signal game_over(victory: bool)
 const STARTING_GOLD := 120
 const STARTING_LIVES := 20
 
+# Počáteční hodnoty pro aktuální úroveň (nastaví se přes set_start před reset()).
+var start_gold: int = STARTING_GOLD
+var start_lives: int = STARTING_LIVES
+
 var gold: int = STARTING_GOLD
 var lives: int = STARTING_LIVES
 var score: int = 0
 var is_game_over: bool = false
 
+## Nastaví počáteční zlato a životy podle úrovně.
+func set_start(gold_amount: int, lives_amount: int) -> void:
+	start_gold = gold_amount
+	start_lives = lives_amount
+
 ## Vrátí stav do výchozích hodnot (volá se při startu / restartu hry).
 func reset() -> void:
-	gold = STARTING_GOLD
-	lives = STARTING_LIVES
+	gold = start_gold
+	lives = start_lives
 	score = 0
 	is_game_over = false
 	gold_changed.emit(gold)
