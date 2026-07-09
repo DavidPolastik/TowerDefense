@@ -9,17 +9,21 @@ extends Node2D
 @export var projectile_scene: PackedScene
 
 var _cooldown: float = 0.0
+@onready var sprite: Sprite2D = $Sprite
 
 func _ready() -> void:
 	queue_redraw()
 
 func _physics_process(delta: float) -> void:
+	var target := _find_target()
+	# Otočení hlavně věže směrem k cíli (sprite míří nahoru, proto +PI/2).
+	if target != null:
+		var dir := target.global_position - global_position
+		sprite.rotation = dir.angle() + PI / 2.0
 	_cooldown -= delta
-	if _cooldown <= 0.0:
-		var target := _find_target()
-		if target != null:
-			_fire(target)
-			_cooldown = 1.0 / fire_rate
+	if _cooldown <= 0.0 and target != null:
+		_fire(target)
+		_cooldown = 1.0 / fire_rate
 
 ## Najde nejbližšího nepřítele v dosahu.
 func _find_target() -> Node2D:

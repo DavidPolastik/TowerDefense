@@ -1,0 +1,40 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- hradby (vnější zeď) -->
+  <rect x="22" y="22" width="84" height="84" rx="6" fill="#9aa0a8" stroke="#565b63" stroke-width="4"/>
+  <!-- cimbuří (zuby) na okrajích -->
+  <g fill="#9aa0a8" stroke="#565b63" stroke-width="3">
+    <rect x="34" y="12" width="12" height="12"/>
+    <rect x="58" y="12" width="12" height="12"/>
+    <rect x="82" y="12" width="12" height="12"/>
+    <rect x="34" y="104" width="12" height="12"/>
+    <rect x="58" y="104" width="12" height="12"/>
+    <rect x="82" y="104" width="12" height="12"/>
+    <rect x="12" y="34" width="12" height="12"/>
+    <rect x="12" y="58" width="12" height="12"/>
+    <rect x="12" y="82" width="12" height="12"/>
+    <rect x="104" y="34" width="12" height="12"/>
+    <rect x="104" y="58" width="12" height="12"/>
+    <rect x="104" y="82" width="12" height="12"/>
+  </g>
+  <!-- nádvoří -->
+  <rect x="36" y="36" width="56" height="56" rx="4" fill="#7d838b"/>
+  <!-- rohové věže -->
+  <g stroke="#565b63" stroke-width="3">
+    <circle cx="22" cy="22" r="16" fill="#b3b9c0"/>
+    <circle cx="106" cy="22" r="16" fill="#b3b9c0"/>
+    <circle cx="22" cy="106" r="16" fill="#b3b9c0"/>
+    <circle cx="106" cy="106" r="16" fill="#b3b9c0"/>
+  </g>
+  <g fill="#6b7178">
+    <circle cx="22" cy="22" r="6"/>
+    <circle cx="106" cy="22" r="6"/>
+    <circle cx="22" cy="106" r="6"/>
+    <circle cx="106" cy="106" r="6"/>
+  </g>
+  <!-- centrální věž (donjon) -->
+  <circle cx="64" cy="64" r="20" fill="#b3b9c0" stroke="#565b63" stroke-width="3"/>
+  <circle cx="64" cy="64" r="9" fill="#6b7178"/>
+  <!-- vlajka (identita základny) -->
+  <rect x="63" y="30" width="2.5" height="18" fill="#3c2f22"/>
+  <polygon points="65,31 84,36 65,41" fill="#d84a3a" stroke="#a8362a" stroke-width="1"/>
+</svg>

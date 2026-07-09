@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyda7412vmujw"
-path="res://.godot/imported/base.png-03425f446c9e938e6abc19b9a378bb50.ctex"
+uid="uid://baov5cm8tybfj"
+path="res://.godot/imported/castle.svg-301ae1e7192fdaab139f6a2bc966eb13.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/base.png"
-dest_files=["res://.godot/imported/base.png-03425f446c9e938e6abc19b9a378bb50.ctex"]
+source_file="res://assets/castle.svg"
+dest_files=["res://.godot/imported/castle.svg-301ae1e7192fdaab139f6a2bc966eb13.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

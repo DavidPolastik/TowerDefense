@@ -8,9 +8,13 @@ extends Node2D
 @export var grid_size: int = 64
 @export var min_distance_from_path: float = 48.0
 
+const PREVIEW_RANGE := 160.0   # dosah zobrazený v náhledu
+
 var _path: Path2D
 var _towers_container: Node2D
 var _build_enabled: bool = false
+var _preview_pos: Vector2 = Vector2.ZERO
+var _preview_valid: bool = false
 
 ## Předá cestu a kontejner pro věže (volá Main).
 func setup(path: Path2D, towers_container: Node2D) -> void:
@@ -20,6 +24,15 @@ func setup(path: Path2D, towers_container: Node2D) -> void:
 ## Zapne/vypne stavební režim (napojeno na přepínací tlačítko v HUD).
 func set_build_mode(enabled: bool) -> void:
 	_build_enabled = enabled
+	queue_redraw()
+
+func _process(_delta: float) -> void:
+	# Živý náhled: kam se věž postaví a zda je to platné (zelená/červená).
+	if not _build_enabled:
+		return
+	_preview_pos = _snap_to_grid(get_global_mouse_position())
+	_preview_valid = _is_valid_position(_preview_pos) and GameManager.gold >= tower_cost
+	queue_redraw()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not _build_enabled or GameManager.is_game_over:
@@ -55,3 +68,15 @@ func _is_valid_position(pos: Vector2) -> bool:
 			if t is Node2D and (t as Node2D).global_position.distance_to(pos) < grid_size * 0.75:
 				return false
 	return true
+
+func _draw() -> void:
+	# Náhled umístění věže (jen ve stavebním režimu).
+	if not _build_enabled:
+		return
+	var col := Color(0.3, 0.9, 0.4, 0.9) if _preview_valid else Color(0.9, 0.3, 0.3, 0.9)
+	# Dosah budoucí věže.
+	draw_circle(_preview_pos, PREVIEW_RANGE, Color(col.r, col.g, col.b, 0.08))
+	draw_arc(_preview_pos, PREVIEW_RANGE, 0.0, TAU, 48, Color(col.r, col.g, col.b, 0.35), 1.5)
+	# Značka místa (kruh + křížek při neplatném).
+	draw_circle(_preview_pos, grid_size * 0.4, Color(col.r, col.g, col.b, 0.35))
+	draw_arc(_preview_pos, grid_size * 0.4, 0.0, TAU, 24, col, 2.5)

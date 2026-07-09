@@ -13,6 +13,7 @@ Thumbs.db
 # Soubory jiných úkolů, které leží ve stejné složce (nepatří do hry)
 /seminarka
 /snake/
+/seminarni_prace/
 
 # Konfigurace editoru / nástrojů
 .claude/
