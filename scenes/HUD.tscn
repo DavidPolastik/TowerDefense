@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1"]
+
+[node name="HUD" type="CanvasLayer"]
+layer = 1
+script = ExtResource("1")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 260.0
+offset_bottom = 250.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 238.0
+offset_bottom = 238.0
+theme_override_constants/separation = 10
+
+[node name="GoldLabel" type="Label" parent="Panel/VBox"]
+text = "Zlato: 0"
+
+[node name="LivesLabel" type="Label" parent="Panel/VBox"]
+text = "Životy: 0"
+
+[node name="WaveLabel" type="Label" parent="Panel/VBox"]
+text = "Vlna: 0"
+
+[node name="BuildButton" type="Button" parent="Panel/VBox"]
+toggle_mode = true
+text = "Stavět věž (50 zlata)"
+
+[node name="StartButton" type="Button" parent="Panel/VBox"]
+text = "Spustit vlny"
+
+[node name="CenterMessage" type="Label" parent="."]
+offset_left = 376.0
+offset_top = 260.0
+offset_right = 776.0
+offset_bottom = 388.0
+theme_override_font_sizes/font_size = 48
+horizontal_alignment = 1
+vertical_alignment = 1
+text = ""

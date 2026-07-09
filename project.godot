@@ -1,0 +1,27 @@
+; Engine configuration file.
+; Konfigurační soubor projektu Godot – Tower Defense.
+; Otevřete tento soubor v Godot 4.x (Import / Otevřít projekt).
+
+config_version=5
+
+[application]
+
+config/name="Tower Defense"
+config/description="Strategická hra (tower defense) – závěrečný projekt."
+run/main_scene="res://scenes/Main.tscn"
+config/features=PackedStringArray("4.3", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*res://scripts/game_manager.gd"
+
+[display]
+
+window/size/viewport_width=1152
+window/size/viewport_height=648
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

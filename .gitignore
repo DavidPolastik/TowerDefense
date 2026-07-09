@@ -1,0 +1,11 @@
+# Godot 4 – ignorované soubory
+# Cache editoru (regeneruje se automaticky při otevření projektu)
+.godot/
+
+# Exportované sestavení hry
+/build/
+export_presets.cfg
+
+# Systémové soubory
+.DS_Store
+Thumbs.db
