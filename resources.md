@@ -36,10 +36,6 @@ licence **CC0**:
 - **GDScript** – skriptovací jazyk Godotu
 - Dokumentace Godotu – <https://docs.godotengine.org/en/stable/>
 
-## Další doporučené zdroje (zatím nepoužito)
-- **OpenGameArt** – volně dostupné assety – <https://opengameart.org>
-- **Freesound** – zvukové efekty – <https://freesound.org>
-
 ## Poznámka k licencím
 Protože jde o neveřejný školní projekt, licence zatím nejsou řešeny. Při
 případném dalším použití je nutné ověřit a dodržet licenční podmínky
